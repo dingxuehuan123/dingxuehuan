@@ -20,6 +20,17 @@ class Problem_cate_model extends MY_Model {
         return $this->query_result($field, $where);
     }
 
+    public function get_all($cate_name){
+        $field = '*';
+        $where = array();
+        if(!empty($cate_name)){
+            $where['cate_name like'] = '%' . $cate_name . '%';
+        }
+        $where['is_delete'] = 0;
+        $orderby = 'id asc';
+        return $this->query_all($field, $where, $orderby);
+    }
+
 }
 
 ?>

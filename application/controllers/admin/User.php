@@ -4,7 +4,6 @@ class User extends SYS_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('user_model');
         $this->load->library('user_service');
     }
 
