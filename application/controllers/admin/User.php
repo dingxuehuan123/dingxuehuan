@@ -11,7 +11,7 @@ class User extends SYS_Controller {
     * 获取用户角色列表
     */
     function find_user_role_list() {
-        $result = $this->user_service->user_role_list();
+        $result = $this->user_service->find_user_role_list();
         echo json_encode($result);exit;
     }
 

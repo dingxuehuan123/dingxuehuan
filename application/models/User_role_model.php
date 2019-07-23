@@ -21,7 +21,7 @@ class User_role_model extends MY_Model {
     }
 
     public function get_all(){
-        $field = '*';
+        $field = 'id, role_name';
         $where = array();
         $where['is_delete'] = 0;
         $orderby = 'id asc';
