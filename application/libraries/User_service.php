@@ -11,6 +11,7 @@ class User_service {
 		$this->CI = & get_instance ();
         $this->CI->load->model('user_model');
         $this->CI->load->model('user_role_model');
+        $this->CI->load->model('software_product_user_model');
 	}
 
     /**
@@ -126,6 +127,61 @@ class User_service {
         $data['update_time'] = date("Y-m-d H:i:s");
         $data['delete_time'] = date("Y-m-d H:i:s");
         $this->CI->user_model->query_update($where, $data);
+
+        return output(0,'成功');
+    }
+
+    /**
+     * 获取服务对象列表
+     */
+    public function find_software_product_user_list($software_product_id, $department_id, $keyword, $page, $per_page) {
+
+        $software_product_users = $this->CI->software_product_user_model->find_software_product_user_list($software_product_id, $department_id, $keyword, $page, $per_page);
+        $count = $this->CI->software_product_user_model->find_software_product_user_list_count($software_product_id, $department_id, $keyword);
+        return output(0, '成功', ['software_product_users'=>$software_product_users, 'count'=>$count->count]);
+    }
+
+    /**
+     * 新增编辑服务对象
+     */
+    public function save_software_product_user($id, $software_product_id, $user_id) {
+        if(empty($software_product_id)){
+            return output(1001, '请选择产品');
+        }
+        if(empty($user_id)){
+            return output(1001, '请选择用户');
+        }
+
+        $data = array(
+            'software_product_id' => $software_product_id,
+            'user_id' => $user_id
+        );
+        if(empty($id)){
+            $data['create_time'] = date("Y-m-d H:i:s");
+            $this->CI->software_product_user_model->query_insert($data);
+        }else{
+            $where = array();
+            $where['id'] = $id;
+            $data['update_time'] = date("Y-m-d H:i:s");
+            $this->CI->software_product_user_model->query_update($where, $data);
+        }
+
+        return output(0,'成功');
+    }
+
+    /**
+     * 删除服务对象
+     */
+    public function del_software_product_user($id) {
+        if(empty($id)){
+            return output(1, '参数错误');
+        }
+        $where = array();
+        $where['id'] = $id;
+        $data['is_delete'] = 1;
+        $data['update_time'] = date("Y-m-d H:i:s");
+        $data['delete_time'] = date("Y-m-d H:i:s");
+        $this->CI->software_product_user_model->query_update($where, $data);
 
         return output(0,'成功');
     }
