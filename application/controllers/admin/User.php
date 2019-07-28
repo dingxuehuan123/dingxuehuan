@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin:*');
 
 class User extends SYS_Controller {
 
@@ -44,9 +46,9 @@ class User extends SYS_Controller {
         $department_id = isset($_POST['department_id']) ? $_POST['department_id'] : '';
         $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->user_service->find_user_list($role_id, $department_id, $keyword, $page, $per_page);
+        $result = $this->user_service->find_user_list($role_id, $department_id, $keyword, $page, $limit);
         echo json_encode($result);exit;
     }
 
@@ -55,8 +57,8 @@ class User extends SYS_Controller {
     */
     function save_user() {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $role_id = isset($_POST['role_id']) ? $_POST['role_id'] : '';
-        $department_id = isset($_POST['department_id']) ? $_POST['department_id'] : '';
+        $role_id = isset($_POST['add_role_id']) ? $_POST['add_role_id'] : '';
+        $department_id = isset($_POST['add_department_id']) ? $_POST['add_department_id'] : '';
         $job_num = isset($_POST['job_num']) ? $_POST['job_num'] : '';
         $name = isset($_POST['name']) ? $_POST['name'] : '';
         $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
@@ -83,9 +85,9 @@ class User extends SYS_Controller {
         $department_id = isset($_POST['department_id']) ? $_POST['department_id'] : '';
         $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->user_service->find_software_product_user_list($software_product_id, $department_id, $keyword, $page, $per_page);
+        $result = $this->user_service->find_software_product_user_list($software_product_id, $department_id, $keyword, $page, $limit);
         echo json_encode($result);exit;
     }
 
@@ -108,6 +110,14 @@ class User extends SYS_Controller {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
 
         $result = $this->user_service->del_software_product_user($id);
+        echo json_encode($result);exit;
+    }
+
+    /**
+    * 获取所有部门
+    */
+    function get_all_department() {
+        $result = $this->user_service->get_all_department();
         echo json_encode($result);exit;
     }
 

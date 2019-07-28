@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin:*');
 
 class Customer_service extends SYS_Controller {
 
@@ -14,9 +16,9 @@ class Customer_service extends SYS_Controller {
         $software_product_id = isset($_POST['software_product_id']) ? $_POST['software_product_id'] : '';
         $feedback_content = isset($_POST['feedback_content']) ? $_POST['feedback_content'] : '';
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->customer_service_service->find_customer_service_list($software_product_id, $feedback_content, $page, $per_page);
+        $result = $this->customer_service_service->find_customer_service_list($software_product_id, $feedback_content, $page, $limit);
         echo json_encode($result);exit;
     }
 

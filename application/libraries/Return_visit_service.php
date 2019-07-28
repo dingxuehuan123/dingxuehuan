@@ -19,7 +19,7 @@ class Return_visit_service {
 
         $return_visits = $this->CI->return_visit_model->find_return_visit_list($page, $per_page);
         $count = $this->CI->return_visit_model->find_return_visit_list_count();
-        return output(0, '成功', ['return_visits'=>$return_visits, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $return_visits);
     }
 
     /**

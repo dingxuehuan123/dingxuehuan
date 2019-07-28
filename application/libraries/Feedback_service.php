@@ -19,7 +19,7 @@ class Feedback_service {
 
         $feedbacks = $this->CI->feedback_model->find_feedback_list($software_product_id, $problem_cate_id, $feedback_content, $page, $per_page);
         $count = $this->CI->feedback_model->find_feedback_list_count($software_product_id, $problem_cate_id, $feedback_content);
-        return output(0, '成功', ['feedbacks'=>$feedbacks, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $feedbacks);
     }
 
     /**

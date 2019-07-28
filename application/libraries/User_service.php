@@ -20,7 +20,7 @@ class User_service {
     public function find_user_role_list() {
 
         $user_roles = $this->CI->user_role_model->get_all();
-        return output(0, '成功', $user_roles);
+        return output(0, '成功', count($user_roles), $user_roles);
     }
 
     /**
@@ -54,12 +54,17 @@ class User_service {
         if(empty($id)){
             return output(1, '参数错误');
         }
-        $where = array();
-        $where['id'] = $id;
-        $data['is_delete'] = 1;
-        $data['update_time'] = date("Y-m-d H:i:s");
-        $data['delete_time'] = date("Y-m-d H:i:s");
-        $this->CI->user_role_model->query_update($where, $data);
+        $id_array = explode(',', $id);
+        if(!empty($id_array)){
+            foreach($id_array as $id){
+                $where = array();
+                $where['id'] = $id;
+                $data['is_delete'] = 1;
+                $data['update_time'] = date("Y-m-d H:i:s");
+                $data['delete_time'] = date("Y-m-d H:i:s");
+                $this->CI->user_role_model->query_update($where, $data);
+            }
+        }
 
         return output(0,'成功');
     }
@@ -71,7 +76,7 @@ class User_service {
 
         $users = $this->CI->user_model->find_user_list($role_id, $department_id, $keyword, $page, $per_page);
         $count = $this->CI->user_model->find_user_list_count($role_id, $department_id, $keyword);
-        return output(0, '成功', ['users'=>$users, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $users);
     }
 
     /**
@@ -121,13 +126,17 @@ class User_service {
         if(empty($id)){
             return output(1, '参数错误');
         }
-        $where = array();
-        $where['id'] = $id;
-        $data['is_delete'] = 1;
-        $data['update_time'] = date("Y-m-d H:i:s");
-        $data['delete_time'] = date("Y-m-d H:i:s");
-        $this->CI->user_model->query_update($where, $data);
-
+        $id_array = explode(',', $id);
+        if(!empty($id_array)){
+            foreach($id_array as $id){
+                $where = array();
+                $where['id'] = $id;
+                $data['is_delete'] = 1;
+                $data['update_time'] = date("Y-m-d H:i:s");
+                $data['delete_time'] = date("Y-m-d H:i:s");
+                $this->CI->user_model->query_update($where, $data);
+            }
+        }
         return output(0,'成功');
     }
 
@@ -138,7 +147,7 @@ class User_service {
 
         $software_product_users = $this->CI->software_product_user_model->find_software_product_user_list($software_product_id, $department_id, $keyword, $page, $per_page);
         $count = $this->CI->software_product_user_model->find_software_product_user_list_count($software_product_id, $department_id, $keyword);
-        return output(0, '成功', ['software_product_users'=>$software_product_users, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $software_product_users);
     }
 
     /**
@@ -184,6 +193,15 @@ class User_service {
         $this->CI->software_product_user_model->query_update($where, $data);
 
         return output(0,'成功');
+    }
+
+    /**
+     * 获取所有部门
+     */
+    public function get_all_department() {
+        $this->CI->load->model('department_model');
+        $departments = $this->CI->department_model->get_all();
+        return output(0, '成功', count($departments), $departments);
     }
 
 }

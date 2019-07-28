@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin:*');
 
 class Problem extends SYS_Controller {
 
@@ -45,9 +47,9 @@ class Problem extends SYS_Controller {
         $problem_cate_id = isset($_POST['problem_cate_id']) ? $_POST['problem_cate_id'] : '';
         $problem = isset($_POST['problem']) ? $_POST['problem'] : '';
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->problem_service->find_problem_list($problem_cate_id, $problem, $page, $per_page);
+        $result = $this->problem_service->find_problem_list($problem_cate_id, $problem, $page, $limit);
         echo json_encode($result);exit;
     }
 

@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin:*');
 
 class Software_product extends SYS_Controller {
 
@@ -13,9 +15,9 @@ class Software_product extends SYS_Controller {
     function find_software_product_list() {
         $product_name = isset($_POST['product_name']) ? $_POST['product_name'] : '';
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->software_product_service->find_software_product_list($product_name, $page, $per_page);
+        $result = $this->software_product_service->find_software_product_list($product_name, $page, $limit);
         echo json_encode($result);exit;
     }
 

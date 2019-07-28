@@ -19,7 +19,7 @@ class Customer_service_service {
 
         $customer_services = $this->CI->customer_service_model->find_customer_service_list($software_product_id, $feedback_content, $page, $per_page);
         $count = $this->CI->customer_service_model->find_customer_service_list_count($software_product_id, $feedback_content);
-        return output(0, '成功', ['customer_services'=>$customer_services, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $customer_services);
     }
 
     /**

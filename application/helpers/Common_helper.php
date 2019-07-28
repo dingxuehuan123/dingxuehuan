@@ -55,10 +55,11 @@ function array2object($array) {
  * msg 提示信息
  * data 返回数据
  */
-function output($code=0, $msg='', $data=[]) {
+function output($code=0, $msg='', $count=0, $data=[]) {
     $res = array(
         'code' => $code,
         'msg' => $msg,
+        'count' => $count,
         'data' => $data,
     );
     return $res;

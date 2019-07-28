@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin:*');
 
 class Return_visit extends SYS_Controller {
 
@@ -12,9 +14,9 @@ class Return_visit extends SYS_Controller {
     */
     function find_return_visit_list() {
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->return_visit_service->find_return_visit_list($page, $per_page);
+        $result = $this->return_visit_service->find_return_visit_list($page, $limit);
         echo json_encode($result);exit;
     }
 

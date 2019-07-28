@@ -21,7 +21,7 @@ class Software_product_service {
 
         $software_products = $this->CI->software_product_model->find_software_product_list($product_name, $page, $per_page);
         $count = $this->CI->software_product_model->find_software_product_list_count($product_name);
-        return output(0, '成功', ['software_products'=>$software_products, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $software_products);
     }
 
     /**

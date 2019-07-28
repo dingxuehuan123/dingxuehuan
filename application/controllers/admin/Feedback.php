@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin:*');
 
 class Feedback extends SYS_Controller {
 
@@ -15,9 +17,9 @@ class Feedback extends SYS_Controller {
         $problem_cate_id = isset($_POST['problem_cate_id']) ? $_POST['problem_cate_id'] : '';
         $feedback_content = isset($_POST['feedback_content']) ? $_POST['feedback_content'] : '';
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
-        $per_page = isset($_POST['per_page']) ? $_POST['per_page'] : 20;
+        $limit = isset($_POST['limit']) ? $_POST['limit'] : 10;
 
-        $result = $this->feedback_service->find_feedback_list($software_product_id, $problem_cate_id, $feedback_content, $page, $per_page);
+        $result = $this->feedback_service->find_feedback_list($software_product_id, $problem_cate_id, $feedback_content, $page, $limit);
         echo json_encode($result);exit;
     }
 

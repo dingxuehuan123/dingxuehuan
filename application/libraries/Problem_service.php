@@ -19,7 +19,7 @@ class Problem_service {
     public function find_problem_cate_list($cate_name) {
 
         $problem_cates = $this->CI->problem_cate_model->get_all($cate_name);
-        return output(0, '成功', $problem_cates);
+        return output(0, '成功', count($problem_cates), $problem_cates);
     }
 
     /**
@@ -71,7 +71,7 @@ class Problem_service {
 
         $problems = $this->CI->problem_model->find_problem_list($problem_cate_id, $problem, $page, $per_page);
         $count = $this->CI->problem_model->find_problem_list_count($problem_cate_id, $problem);
-        return output(0, '成功', ['problems'=>$problems, 'count'=>$count->count]);
+        return output(0, '成功', $count->count, $problems);
     }
 
     /**
