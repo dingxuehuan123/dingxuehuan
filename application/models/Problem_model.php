@@ -21,7 +21,7 @@ class Problem_model extends MY_Model {
     }
 
     public function find_problem_list($problem_cate_id, $problem, $page, $per_page){
-        $field = 'p.id,p.problem,p.answer,pc.cate_name,pc.sub_cate_name';
+        $field = 'p.id,p.problem,p.answer,pc.id as cate_id, pc.cate_name,pc.sub_cate_name';
         $where = 'p.is_delete=0';
 
         if(!empty($problem_cate_id)){

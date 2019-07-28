@@ -54,12 +54,17 @@ class Problem_service {
         if(empty($id)){
             return output(1, '参数错误');
         }
-        $where = array();
-        $where['id'] = $id;
-        $data['is_delete'] = 1;
-        $data['update_time'] = date("Y-m-d H:i:s");
-        $data['delete_time'] = date("Y-m-d H:i:s");
-        $this->CI->del_problem_cate->query_update($where, $data);
+        $id_array = explode(',', $id);
+        if(!empty($id_array)){
+            foreach($id_array as $id){
+                $where = array();
+                $where['id'] = $id;
+                $data['is_delete'] = 1;
+                $data['update_time'] = date("Y-m-d H:i:s");
+                $data['delete_time'] = date("Y-m-d H:i:s");
+                $this->CI->problem_cate_model->query_update($where, $data);
+            }
+        }
 
         return output(0,'成功');
     }
@@ -70,8 +75,16 @@ class Problem_service {
     public function find_problem_list($problem_cate_id, $problem, $page, $per_page) {
 
         $problems = $this->CI->problem_model->find_problem_list($problem_cate_id, $problem, $page, $per_page);
+        $result = [];
+        if(!empty($problems)){
+            foreach($problems as $row){
+                $row = object2array($row);
+                $row['cate_name'] = $row['cate_name'].'-'.$row['sub_cate_name'];
+                $result[] = array2object($row);
+            }
+        }
         $count = $this->CI->problem_model->find_problem_list_count($problem_cate_id, $problem);
-        return output(0, '成功', $count->count, $problems);
+        return output(0, '成功', $count->count, $result);
     }
 
     /**
@@ -113,12 +126,17 @@ class Problem_service {
         if(empty($id)){
             return output(1, '参数错误');
         }
-        $where = array();
-        $where['id'] = $id;
-        $data['is_delete'] = 1;
-        $data['update_time'] = date("Y-m-d H:i:s");
-        $data['delete_time'] = date("Y-m-d H:i:s");
-        $this->CI->problem_model->query_update($where, $data);
+        $id_array = explode(',', $id);
+        if(!empty($id_array)){
+            foreach($id_array as $id){
+                $where = array();
+                $where['id'] = $id;
+                $data['is_delete'] = 1;
+                $data['update_time'] = date("Y-m-d H:i:s");
+                $data['delete_time'] = date("Y-m-d H:i:s");
+                $this->CI->problem_model->query_update($where, $data);
+            }
+        }
 
         return output(0,'成功');
     }

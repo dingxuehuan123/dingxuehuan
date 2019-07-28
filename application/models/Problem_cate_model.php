@@ -21,7 +21,7 @@ class Problem_cate_model extends MY_Model {
     }
 
     public function get_all($cate_name){
-        $field = 'id,cate_name,sub_cate_name';
+        $field = 'id,cate_name,sub_cate_name,create_time';
         $where = array();
         if(!empty($cate_name)){
             $where['cate_name like'] = '%' . $cate_name . '%';

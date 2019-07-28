@@ -58,7 +58,7 @@ class Problem extends SYS_Controller {
     */
     function save_problem() {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $problem_cate_id = isset($_POST['problem_cate_id']) ? $_POST['problem_cate_id'] : '';
+        $problem_cate_id = isset($_POST['add_problem_cate_id']) ? $_POST['add_problem_cate_id'] : '';
         $problem = isset($_POST['problem']) ? $_POST['problem'] : '';
         $answer = isset($_POST['answer']) ? $_POST['answer'] : '';
 

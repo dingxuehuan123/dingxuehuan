@@ -58,12 +58,17 @@ class Software_product_service {
         if(empty($id)){
             return output(1, '参数错误');
         }
-        $where = array();
-        $where['id'] = $id;
-        $data['is_delete'] = 1;
-        $data['update_time'] = date("Y-m-d H:i:s");
-        $data['delete_time'] = date("Y-m-d H:i:s");
-        $this->CI->software_product_model->query_update($where, $data);
+        $id_array = explode(',', $id);
+        if(!empty($id_array)){
+            foreach($id_array as $id){
+                $where = array();
+                $where['id'] = $id;
+                $data['is_delete'] = 1;
+                $data['update_time'] = date("Y-m-d H:i:s");
+                $data['delete_time'] = date("Y-m-d H:i:s");
+                $this->CI->software_product_model->query_update($where, $data);
+            }
+        }
 
         return output(0,'成功');
     }
