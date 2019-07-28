@@ -39,6 +39,31 @@ class MY_Controller extends CI_Controller {
         $this->load->view($this->template, $this->view_data, $return);
     }
 
+    /**
+     * 获取图片
+     * @param type $pic_name
+     * @return string
+     */
+    public function get_file($pic_name = 'file', $path = './user_guide/upload/pic/') {
+        if (empty($_FILES[$pic_name]['tmp_name'])) {
+            return '';
+        }
+        //文件中文名处理成英文名
+        $this->load->library('util_pinyin');
+        $file_name = $this->util_pinyin->get($_FILES[$pic_name]['name'],'utf-8');
+        $_FILES[$pic_name]['name'] = date('YmdHis').$file_name;
+
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf|mp4|avi|mov|ram|AVI|webm|MP4';
+        $config['max_size'] = '10240';
+        $config['max_width'] = '2048';
+        $config['max_height'] = '2048';
+        $this->load->library('upload', $config);
+        $this->upload->do_upload($pic_name);
+        $data = $this->upload->data();
+        return $data;
+    }
+
 }
 
 class SYS_Controller extends MY_Controller {
@@ -87,7 +112,7 @@ class SYS_Controller extends MY_Controller {
      * @param type $pic_name
      * @return string
      */
-    public function get_pic($pic_name = 'file') {
+    public function get_file($pic_name = 'file', $path = './user_guide/upload/pic/') {
         if (empty($_FILES[$pic_name]['tmp_name'])) {
             return '';
         }
@@ -96,11 +121,11 @@ class SYS_Controller extends MY_Controller {
         $file_name = $this->util_pinyin->get($_FILES[$pic_name]['name'],'utf-8');
         $_FILES[$pic_name]['name'] = date('YmdHis').$file_name;
 
-        $config['upload_path'] = './user_guide/upload/pic/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size'] = '2048';
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'jpg|jpeg|gif|bmp|png|doc|docx|xls|xlsx|ppt|pptx|pdf|txt|rar|zip|swf|mp4|avi|mov|ram|AVI|webm|MP4';
+        $config['max_size'] = '10240';
         $config['max_width'] = '2048';
-        $config['max_height'] = '1024';
+        $config['max_height'] = '2048';
         $this->load->library('upload', $config);
         $this->upload->do_upload($pic_name);
         $data = $this->upload->data();
