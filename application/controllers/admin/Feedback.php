@@ -28,8 +28,8 @@ class Feedback extends SYS_Controller {
     */
     function save_feedback() {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $software_product_id = isset($_POST['software_product_id']) ? $_POST['software_product_id'] : '';
-        $problem_cate_id = isset($_POST['problem_cate_id']) ? $_POST['problem_cate_id'] : '';
+        $software_product_id = isset($_POST['add_software_product_id']) ? $_POST['add_software_product_id'] : '';
+        $problem_cate_id = isset($_POST['add_problem_cate_id']) ? $_POST['add_problem_cate_id'] : '';
         $name = isset($_POST['name']) ? $_POST['name'] : '';
         $feedback_content = isset($_POST['feedback_content']) ? $_POST['feedback_content'] : '';
         $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
@@ -78,7 +78,7 @@ class Feedback extends SYS_Controller {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
         $feedback_result = isset($_POST['feedback_result']) ? $_POST['feedback_result'] : '';
 
-        $result = $this->feedback_service->feedback_result($feedback_result);
+        $result = $this->feedback_service->feedback_result($id, $feedback_result);
         echo json_encode($result);exit;
     }
 

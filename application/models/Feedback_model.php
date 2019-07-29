@@ -33,7 +33,7 @@ class Feedback_model extends MY_Model {
     }
 
     public function find_feedback_list($software_product_id, $problem_cate_id, $feedback_content, $page, $per_page){
-        $field = 'f.id,f.name,f.feedback_content,f.mobile,f.image_urls,f.audio_url,f.urgent,sp.product_name,pc.cate_name,pc.sub_cate_name';
+        $field = 'f.id,f.software_product_id,f.problem_cate_id,f.name,f.feedback_content,f.feedback_result,f.mobile,f.image_urls,f.audio_url,f.urgent,f.status,sp.product_name,pc.cate_name,pc.sub_cate_name,pc.create_time';
         $where = 'f.is_delete=0';
 
         if(!empty($software_product_id)){

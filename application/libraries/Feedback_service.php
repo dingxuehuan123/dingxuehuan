@@ -18,8 +18,30 @@ class Feedback_service {
     public function find_feedback_list($software_product_id, $problem_cate_id, $feedback_content, $page, $per_page) {
 
         $feedbacks = $this->CI->feedback_model->find_feedback_list($software_product_id, $problem_cate_id, $feedback_content, $page, $per_page);
+        $result = [];
+        if(!empty($feedbacks)){
+            foreach($feedbacks as $row){
+                $row = object2array($row);
+                $row['cate_name'] = $row['cate_name'].'-'.$row['sub_cate_name'];
+                $urgent = '一般';
+                if($row['urgent'] == 2){
+                    $urgent = '紧急';
+                }
+
+                $status = '待处理';
+                if($row['status'] == 2){
+                    $status = '处理中';
+                }elseif($row['status'] == 3){
+                    $status = '处理完毕';
+                }
+
+                $row['urgent'] = $urgent;
+                $row['status'] = $status;
+                $result[] = array2object($row);
+            }
+        }
         $count = $this->CI->feedback_model->find_feedback_list_count($software_product_id, $problem_cate_id, $feedback_content);
-        return output(0, '成功', $count->count, $feedbacks);
+        return output(0, '成功', $count->count, $result);
     }
 
     /**
@@ -112,13 +134,14 @@ class Feedback_service {
     /**
      * 提交结果
      */
-    public function feedback_result($feedback_result) {
+    public function feedback_result($id, $feedback_result) {
         if(empty($id)){
             return output(1, '参数错误');
         }
         $where = array();
         $where['id'] = $id;
         $data['feedback_result'] = $feedback_result;
+        $data['status'] = 3;
         $data['update_time'] = date("Y-m-d H:i:s");
         $data['delete_time'] = date("Y-m-d H:i:s");
         $this->CI->feedback_model->query_update($where, $data);
