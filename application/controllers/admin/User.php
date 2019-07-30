@@ -96,8 +96,8 @@ class User extends SYS_Controller {
     */
     function save_software_product_user() {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $software_product_id = isset($_POST['software_product_id']) ? $_POST['software_product_id'] : '';
-        $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : '';
+        $software_product_id = isset($_POST['add_software_product_id']) ? $_POST['add_software_product_id'] : '';
+        $user_id = isset($_POST['add_user_id']) ? $_POST['add_user_id'] : '';
 
         $result = $this->user_service->save_software_product_user($id, $software_product_id, $user_id);
         echo json_encode($result);exit;

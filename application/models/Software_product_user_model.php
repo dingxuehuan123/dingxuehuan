@@ -21,7 +21,7 @@ class Software_product_user_model extends MY_Model {
     }
 
     public function find_software_product_user_list($software_product_id, $department_id, $keyword, $page, $per_page){
-        $field = 'spu.id,u.job_num,u.name,u.sex,u.mobile,u.email,u.position,d.department_name,sp.product_name';
+        $field = 'spu.id,spu.software_product_id,spu.user_id,u.job_num,u.name,u.sex,u.mobile,u.email,u.position,d.department_name,sp.product_name';
         $where = 'spu.is_delete=0';
 
         if(!empty($software_product_id)){
