@@ -25,11 +25,11 @@ class Return_visit_service {
     /**
      * 新增编辑回访计划
      */
-    public function save_return_visit($id, $feedback_id, $customer_service_id, $customer_user_id, $return_visit_reasons, $return_visit_content, $return_visit_time) {
+    public function save_return_visit($id, $software_product_id, $user_id, $customer_user_id, $return_visit_reasons, $return_visit_content, $return_visit_time) {
 
         $data = array(
-            'feedback_id' => $feedback_id,
-            'customer_service_id' => $customer_service_id,
+            'software_product_id' => $software_product_id,
+            'user_id' => $user_id,
             'customer_user_id' => $customer_user_id,
             'return_visit_reasons' => $return_visit_reasons,
             'return_visit_content' => $return_visit_content,
