@@ -27,10 +27,10 @@ class Customer_service extends SYS_Controller {
     */
     function save_customer_service() {
         $id = isset($_POST['id']) ? $_POST['id'] : '';
-        $software_product_id = isset($_POST['software_product_id']) ? $_POST['software_product_id'] : '';
-        $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : '';
-        $customer_user_id = isset($_POST['customer_user_id']) ? $_POST['customer_user_id'] : '';
-        $responsible_user_id = isset($_POST['responsible_user_id']) ? $_POST['responsible_user_id'] : '';
+        $software_product_id = isset($_POST['add_software_product_id']) ? $_POST['add_software_product_id'] : '';
+        $user_id = isset($_POST['add_user_id']) ? $_POST['add_user_id'] : '';
+        $customer_user_id = isset($_POST['add_customer_user_id']) ? $_POST['add_customer_user_id'] : '';
+        $responsible_user_id = isset($_POST['add_responsible_user_id']) ? $_POST['add_responsible_user_id'] : '';
         $feedback_content = isset($_POST['feedback_content']) ? $_POST['feedback_content'] : '';
         $feedback_date = isset($_POST['feedback_date']) ? $_POST['feedback_date'] : '';
         $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';

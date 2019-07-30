@@ -28,7 +28,7 @@ class Customer_service_service {
     public function save_customer_service($id, $software_product_id, $user_id, $customer_user_id, $responsible_user_id, $feedback_content, $feedback_date, $mobile, $image_urls, $call_time, $talk_time) {
         
         if(empty($software_product_id)){
-            return output(1001, '请选择软件产品');
+            return output(1001, '请选择项目名称');
         }
         if(empty($feedback_content)){
             return output(1001, '请填写反馈内容');

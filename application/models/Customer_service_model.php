@@ -36,7 +36,7 @@ class Customer_service_model extends MY_Model {
     }
 
     public function find_customer_service_list($software_product_id, $feedback_content, $page, $per_page){
-        $field = 'cs.feedback_content,cs.feedback_date,cs.mobile,cs.image_urls,cs.call_time,cs.talk_time,u1.name as user_name,u1.position,u2.name as customer_user_name,u3.name as responsible_user_name';
+        $field = 'cs.id,cs.software_product_id,cs.user_id,cs.customer_user_id,cs.responsible_user_id,cs.feedback_content,cs.feedback_date,cs.mobile,cs.image_urls,cs.call_time,cs.talk_time,u1.name as user_name,u1.position,u2.name as customer_user_name,u3.name as responsible_user_name,sp.product_name,d.department_name';
         $where = 'cs.is_delete=0';
 
         if(!empty($software_product_id)){
